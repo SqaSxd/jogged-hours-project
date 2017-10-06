@@ -121,20 +121,29 @@ public class AppBasics {
 
 	/**
 	 * @param question
+	 * @param min
+	 * @param max
 	 * @return double
 	 */
-	public static double requestDouble(String question) {
-		double resultNum = 0;
+	public static double requestDouble(String question, double min, double max) {
+		double resultNum = 0.0;
 		String input = "";
 		boolean valid = false;
 		while (!valid) {
 			try {
 				System.out.print(question);
 				input = scanner.nextLine();
-				resultNum = Double.parseDouble(input);
+				resultNum = Integer.parseInt(input);
+				if (resultNum < min)
+					throw new RequestNumberUnderMinException();
+				else if (resultNum > max)
+					throw new RequestNumberOverMaxException();
 				valid = true;
 			} catch (NumberFormatException e) {
 				System.out.println("You have not entered a valid formatted number [" + input + "]");
+			} catch (RequestNumberNotWithinRangeException e) {
+				System.out.println(
+						"You have not entered a number in range " + "(" + min + ")-(" + max + ") - [" + input + "]");
 			}
 		}
 		return resultNum;
@@ -142,9 +151,11 @@ public class AppBasics {
 
 	/**
 	 * @param question
+	 * @param min
+	 * @param max
 	 * @return float
 	 */
-	public static float requestFloat(String question) {
+	public static float requestFloat(String question, float min, float max) {
 		float resultNum = 0;
 		String input = "";
 		boolean valid = false;
@@ -152,10 +163,17 @@ public class AppBasics {
 			try {
 				System.out.print(question);
 				input = scanner.nextLine();
-				resultNum = Float.parseFloat(input);
+				resultNum = Integer.parseInt(input);
+				if (resultNum < min)
+					throw new RequestNumberUnderMinException();
+				else if (resultNum > max)
+					throw new RequestNumberOverMaxException();
 				valid = true;
 			} catch (NumberFormatException e) {
 				System.out.println("You have not entered a valid formatted number [" + input + "]");
+			} catch (RequestNumberNotWithinRangeException e) {
+				System.out.println(
+						"You have not entered a number in range " + "(" + min + ")-(" + max + ") - [" + input + "]");
 			}
 		}
 		return resultNum;

@@ -1,4 +1,4 @@
-# Basic Project
+# Jogged Hours Project
 ## Core Concepts
 
 *Java application to cover core concepts.*
